@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import { useState } from "react";
 
 function NewTaskForm({ updateTasksArray }) {
@@ -9,19 +10,35 @@ function NewTaskForm({ updateTasksArray }) {
   const [labels, setLabels] = useState("");
 
   // Function to handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async function (e) {
     e.preventDefault();
 
     const newTask = {
-      summary,
+      name: summary,
       description,
       dueDate: new Date(dueDate),
-      isPrioritized,
+      isPrioritized: isPrioritized === "on" ? true : false,
       labels,
     };
 
-    console.log(newTask);
-    updateTasksArray([{ name: "Yeahh buddyyyyy", labels: ["x", "y"] }]);
+    const options = {
+      method: "POST",
+      url: "/api/tasks",
+      data: newTask,
+    };
+
+    try {
+      const response = await axios.request(options);
+
+      if (response.status !== 200) {
+        throw new Error("Failed to create a tasks");
+      }
+      const returnedTask = response.data.createdTask;
+
+      updateTasksArray((prevState) => [...prevState, returnedTask]);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -62,7 +79,7 @@ function NewTaskForm({ updateTasksArray }) {
           type="checkbox"
           name="highPriority"
           checked={isPrioritized}
-          onChange={(e) => setIsPrioritized(e.target.value)}
+          onChange={() => setIsPrioritized((prevState) => !prevState)}
         />
       </label>
       <br />

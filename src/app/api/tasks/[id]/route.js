@@ -6,14 +6,16 @@ import Task from "../../../../../models/task";
 export async function PUT(request, { params }) {
   const { id } = params;
 
-  const { content, completed, resolved } = await request.json();
-  const newTask = { content, completed, resolved };
+  const updatedTask = await request.json();
+
   await connectMongoDB();
 
   // In the options setting new to true so that the updated items is retrieved. It is required for properly setting the state
-  const response = await Task.findByIdAndUpdate(id, newTask, { new: true });
+  const postUpdateTask = await Task.findByIdAndUpdate(id, updatedTask, {
+    new: true,
+  });
 
-  return NextResponse.json(response, { status: 200 });
+  return NextResponse.json({ postUpdateTask }, { status: 200 });
 }
 
 // Getting a Task
@@ -30,7 +32,7 @@ export async function GET(request, { params }) {
 // Deleting a Task
 export async function DELETE(request, { params }) {
   const { id } = params;
-  console.log(id);
+
   await connectMongoDB();
 
   const deletedTask = await Task.findByIdAndDelete(id);

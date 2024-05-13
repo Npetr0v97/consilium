@@ -12,19 +12,16 @@ export async function GET(request) {
 
 export async function POST(request) {
   await connectMongoDB();
-
-  const newTask = {
-    name: "New uaaaaaaaaaaaaaaaaaaaaaaaahhhhhhhhhh",
-    description: "What needs to be done",
+  let newTask = await request.json();
+  newTask = {
+    ...newTask,
     completed: false,
-    completedDate: new Date(),
-    dueDate: new Date(2024, 3, 18),
-    isPrioritized: false,
-    labels: ["Chores", "Morning"],
+    completedDate: null,
   };
+  console.log(newTask);
 
-  const response = await Task.create(newTask);
-  return NextResponse.json({ response }, { status: 200 });
+  const createdTask = await Task.create(newTask);
+  return NextResponse.json({ createdTask }, { status: 200 });
 }
 
 //emergency delete

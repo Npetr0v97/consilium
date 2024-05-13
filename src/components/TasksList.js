@@ -1,13 +1,12 @@
 import React from "react";
-import { useEffect, useState } from "react";
+
 import Task from "./Task";
 
-function TasksList({ tasks }) {
-  console.log(tasks);
+function TasksList({ tasks, deleteHandler }) {
   return (
     <div>
-      {tasks.map((task, index) => (
-        <Task task={task} key={index} />
+      {tasks.map((task) => (
+        <Task task={task} deleteHandler={deleteHandler} key={task._id} />
       ))}
     </div>
   );

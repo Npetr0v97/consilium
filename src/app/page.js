@@ -41,6 +41,26 @@ export default function Home() {
     };
   }, []);
 
+  async function deleteHandler(id) {
+    const options = {
+      method: "DELETE",
+      url: `/api/tasks/${id}`,
+    };
+
+    try {
+      const response = await axios.request(options);
+
+      if (response.status !== 200) {
+        throw new Error("Failed to delete a tasks");
+      }
+      const deletedId = response.data.deletedTask._id;
+      const newTasksArray = tasksArray.filter((task) => task._id !== deletedId);
+      setTasksArray([...newTasksArray]);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async function clickHandler() {
     try {
       const options = {
@@ -53,25 +73,6 @@ export default function Home() {
         throw new Error("Unable to create Task");
       } else {
         console.log(response.data.response);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async function deleteHandler() {
-    try {
-      const options = {
-        method: "DELETE",
-        url: `/api/tasks/6640a5bfd2edbff26dc92a87`,
-      };
-
-      const response = await axios.request(options);
-      if (response.status != 200) {
-        throw new Error("Unable to delete Task");
-      } else {
-        console.log(response.data.deletedTask);
-        console.log(response);
       }
     } catch (error) {
       console.log(error);
@@ -102,10 +103,10 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <h1>hello world</h1>
-      <TasksList tasks={tasksArray} />
+      <TasksList tasks={tasksArray} deleteHandler={deleteHandler} />
       <NewTaskForm updateTasksArray={setTasksArray} />
       <button onClick={clickHandler}>Create new tasks</button>
-      <button onClick={deleteHandler}>Delete button</button>
+
       <button onClick={deleteAllItemsHandler}>Emergency delete</button>
     </main>
   );
