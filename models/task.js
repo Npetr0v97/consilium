@@ -3,6 +3,7 @@ import mongoose, { Schema } from "mongoose";
 const taskSchema = new Schema(
   {
     name: { type: String, required: true },
+    description: String,
     completed: { type: Boolean, required: true },
     completedDate: Date,
     dueDate: Date,

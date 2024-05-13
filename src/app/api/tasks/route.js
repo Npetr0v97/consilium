@@ -15,6 +15,7 @@ export async function POST(request) {
 
   const newTask = {
     name: "New uaaaaaaaaaaaaaaaaaaaaaaaahhhhhhhhhh",
+    description: "What needs to be done",
     completed: false,
     completedDate: new Date(),
     dueDate: new Date(2024, 3, 18),
@@ -27,9 +28,18 @@ export async function POST(request) {
 }
 
 //emergency delete
-export async function DELETE() {
+export async function DELETE(request) {
+  const theMagicWord = request.nextUrl.searchParams.get("theMagicWord");
+  console.log(theMagicWord);
   await connectMongoDB();
 
-  const response = await Task.deleteMany();
-  return NextResponse.json({ response }, { status: 200 });
+  if (theMagicWord === "ERASE") {
+    const response = await Task.deleteMany();
+    return NextResponse.json({ response }, { status: 200 });
+  }
+
+  return NextResponse.json(
+    { message: "Nope, wrong magic word :)" },
+    { status: 401 }
+  );
 }

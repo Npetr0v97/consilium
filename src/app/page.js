@@ -1,10 +1,12 @@
 "use client";
 import styles from "./page.module.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import TasksList from "@/components/TasksList";
+import NewTaskForm from "@/components/NewTaskForm";
 
 export default function Home() {
-  // On mount fetch the list of all Todos from the Mongo database
+  const [tasksArray, setTasksArray] = useState([]);
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
@@ -24,7 +26,7 @@ export default function Home() {
         }
         const tasks = response.data.tasks;
 
-        console.log(tasks);
+        setTasksArray(tasks);
       } catch (error) {
         console.log(error);
       }
@@ -81,6 +83,9 @@ export default function Home() {
       const options = {
         method: "DELETE",
         url: `/api/tasks`,
+        params: {
+          theMagicWord: "ERssASE",
+        },
       };
 
       const response = await axios.request(options);
@@ -97,6 +102,8 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <h1>hello world</h1>
+      <TasksList tasks={tasksArray} />
+      <NewTaskForm updateTasksArray={setTasksArray} />
       <button onClick={clickHandler}>Create new tasks</button>
       <button onClick={deleteHandler}>Delete button</button>
       <button onClick={deleteAllItemsHandler}>Emergency delete</button>
