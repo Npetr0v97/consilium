@@ -14,11 +14,11 @@ function NewTaskForm({ updateTasksArray }) {
     e.preventDefault();
 
     const newTask = {
-      name: summary,
+      summary,
       description,
       dueDate: new Date(dueDate),
-      isPrioritized: isPrioritized === "on" ? true : false,
-      labels,
+      isPrioritized,
+      labels: labels.split(","),
     };
 
     const options = {
