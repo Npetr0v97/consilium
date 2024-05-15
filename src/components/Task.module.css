@@ -1,5 +1,11 @@
+/* @import url("./../app/colors.css"); */
+
 .d_none {
   display: none;
+}
+
+.colors {
+  color: var(--primary-color);
 }
 
 .disable_pointer_event {

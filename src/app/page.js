@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import TasksList from "@/components/TasksList";
 import NewTaskForm from "@/components/NewTaskForm";
+import Navbar from "@/components/Navbar";
+import MainView from "@/components/wrappers/MainView";
 
 export default function Home() {
   const [tasksArray, setTasksArray] = useState([]);
@@ -61,53 +63,13 @@ export default function Home() {
     }
   }
 
-  async function clickHandler() {
-    try {
-      const options = {
-        method: "POST",
-        url: `/api/tasks`,
-      };
-
-      const response = await axios.request(options);
-      if (response.status != 200) {
-        throw new Error("Unable to create Task");
-      } else {
-        console.log(response.data.response);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async function deleteAllItemsHandler() {
-    try {
-      const options = {
-        method: "DELETE",
-        url: `/api/tasks`,
-        params: {
-          theMagicWord: "ERssASE",
-        },
-      };
-
-      const response = await axios.request(options);
-      if (response.status != 200) {
-        throw new Error("Unable to delete all tasks");
-      } else {
-        console.log(response);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   return (
-    <main className={styles.main}>
-      <h1>hello world</h1>
-      <TasksList tasks={tasksArray} deleteHandler={deleteHandler} />
-      <NewTaskForm updateTasksArray={setTasksArray} />
-      <button onClick={clickHandler}>Create new tasks</button>
-
-      <button onClick={deleteAllItemsHandler}>Emergency delete</button>
+    <main className={styles.d_flex}>
+      <Navbar />
+      <MainView>
+        <TasksList tasks={tasksArray} deleteHandler={deleteHandler} />
+        {/* <NewTaskForm updateTasksArray={setTasksArray} /> */}
+      </MainView>
     </main>
   );
 }

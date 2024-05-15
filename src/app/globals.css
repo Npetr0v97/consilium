@@ -1,3 +1,14 @@
+:root {
+  /* Define your color variables */
+  --navbar-secondary: #dd6dbc;
+  --navbar-primary: #6d88e8;
+  --task-primary: #ed6483;
+  --task-secondary: #fb5f6a;
+  --seconday-awesome-white: #dde0fc;
+  --primary-black: #070f2c;
+  --awesome-white: #ffffff;
+}
+
 /*
   1. Use a more-intuitive box-sizing model.
 */
@@ -19,6 +30,12 @@
 */
 body {
   line-height: 1.5;
+  background: linear-gradient(
+    142deg,
+    rgba(109, 136, 232, 1) 0%,
+    rgba(221, 109, 188, 1) 50%,
+    rgba(122, 54, 102, 1) 100%
+  );
   -webkit-font-smoothing: antialiased;
 }
 /*

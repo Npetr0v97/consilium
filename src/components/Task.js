@@ -137,7 +137,7 @@ function Task({ task, deleteHandler }) {
         </button>
       </form>
       <div className={!inEditMode ? "" : styles.d_none}>
-        <h2>{currentTask.summary}</h2>
+        <h2 className={styles.colors}>{currentTask.summary}</h2>
         <p>{currentTask.description}</p>
         <p>Due Date: {currentTask.dueDate}</p>
         <p>
