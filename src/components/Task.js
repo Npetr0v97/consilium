@@ -5,7 +5,8 @@ import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { faFire } from "@fortawesome/free-solid-svg-icons";
+import { faFireFlameCurved } from "@fortawesome/free-solid-svg-icons";
+
 import styles from "./Task.module.css";
 
 function Task({ task, deleteHandler }) {
@@ -53,14 +54,14 @@ function Task({ task, deleteHandler }) {
 
   async function acceptHandler(e) {
     e.preventDefault();
-
+    console.log(currentTask.labels.length);
     const updatedTask = {
       ...currentTask,
       summary,
       description,
       dueDate,
       isPrioritized,
-      labels: labels.split(","),
+      labels: labels !== "" ? labels.split(",") : [],
     };
 
     await taskUpdater(updatedTask);
@@ -73,11 +74,18 @@ function Task({ task, deleteHandler }) {
   }
 
   return (
-    <div>
-      <form className={inEditMode ? "" : styles.d_none}>
+    <div
+      className={`${styles.main_div} ${
+        currentTask.completed ? styles.completed_task : ""
+      }`}
+    >
+      <form
+        className={`${styles.form_style} ${inEditMode ? "" : styles.d_none}`}
+      >
         <label>
-          Summary: *
+          Summary <span className={styles.red}>*</span>{" "}
           <input
+            className={styles.form_input}
             type="text"
             name="summary"
             value={summary}
@@ -85,19 +93,20 @@ function Task({ task, deleteHandler }) {
             required
           />
         </label>
-        <br />
         <label>
-          Description:
+          Description
           <textarea
+            className={styles.form_input}
             name="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
         </label>
-        <br />
+
         <label>
-          Due Date:
+          Due Date
           <input
+            className={styles.form_input}
             type="date"
             name="dueDate"
             value={
@@ -108,77 +117,140 @@ function Task({ task, deleteHandler }) {
             onChange={(e) => setDueDate(e.target.value)}
           />
         </label>
-        <br />
+
         <label>
-          High Priority:
+          Labels
           <input
-            type="checkbox"
-            name="highPriority"
-            checked={isPrioritized}
-            onChange={() => setIsPrioritized((prevState) => !prevState)}
-          />
-        </label>
-        <br />
-        <label>
-          Labels:
-          <input
+            className={styles.form_input}
             type="text"
             name="labels"
             value={labels}
             onChange={(e) => setLabels(e.target.value)}
           />
-          <small>Separate labels with commas</small>
         </label>
-        <button onClick={acceptHandler}>
-          <FontAwesomeIcon icon={faCheck} />
-        </button>
-        <button onClick={declineHandler}>
-          <FontAwesomeIcon icon={faTimes} />
-        </button>
+        <label className={styles.d_flex}>
+          <div>
+            Toggle <u>Priority</u>
+          </div>
+          <div
+            onClick={() => {
+              setIsPrioritized((prevState) => !prevState);
+              console.log("clicked", isPrioritized);
+            }}
+            className={styles.prio_div}
+          >
+            <FontAwesomeIcon
+              icon={faFireFlameCurved}
+              className={`${styles.prio_one} ${
+                isPrioritized ? "" : styles.no_prio
+              }`}
+            />
+            <FontAwesomeIcon
+              icon={faFireFlameCurved}
+              className={`${styles.prio_sec} ${
+                isPrioritized ? "" : styles.no_prio
+              }`}
+            />
+          </div>
+        </label>
+        <div className={styles.form_buttons}>
+          <button
+            onClick={acceptHandler}
+            className={`${styles.button} ${styles.form_button_accept}`}
+          >
+            <FontAwesomeIcon icon={faCheck} />
+          </button>
+          <button
+            onClick={declineHandler}
+            className={`${styles.button} ${styles.form_button_decline}`}
+          >
+            <FontAwesomeIcon icon={faTimes} />
+          </button>
+        </div>
       </form>
       <div className={!inEditMode ? "" : styles.d_none}>
         <h2 className={styles.colors}>{currentTask.summary}</h2>
         <p>{currentTask.description}</p>
-        <p>Due Date: {currentTask.dueDate}</p>
-        <p>
-          Is Prioritized:
-          <input
-            type="checkbox"
-            id="isPrioritized"
-            checked={currentTask.completed}
-            onChange={completionChangeHandler}
-            className={inEditMode ? "" : styles.d_none}
-          />
-          <FontAwesomeIcon
-            icon={faFire}
-            className={currentTask.isPrioritized ? "" : styles.d_none}
-          />
-        </p>
-        <ul>
-          {currentTask.labels.map((label, labelIndex) => (
-            <li key={labelIndex}>{label}</li>
-          ))}
-        </ul>
-        <p>
-          Completed:
-          <input
-            type="checkbox"
-            id="completed"
-            checked={currentTask.completed}
-            onChange={completionChangeHandler}
-          />
-        </p>
-        <button
-          onClick={() => {
-            setInEditMode((prevState) => !prevState);
-          }}
-        >
-          <FontAwesomeIcon icon={faEdit} />
-        </button>
+        <div className={styles.tags}>
+          <div
+            className={`${styles.label} ${styles.dueLabel} ${
+              currentTask.dueDate !== null && currentTask.dueDate !== ""
+                ? ""
+                : styles.d_none
+            }`}
+          >
+            Due:
+            {new Date(currentTask.dueDate)
+              .toLocaleDateString("en-GB", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+              })
+              .replaceAll("/", ".")}
+          </div>
+
+          {currentTask.labels.length !== 0 ? (
+            currentTask.labels.map((label, labelIndex) => (
+              <div
+                className={`${styles.label} ${styles.categoryLabel}`}
+                key={labelIndex}
+              >
+                {label}
+              </div>
+            ))
+          ) : (
+            <div></div>
+          )}
+
+          <div className={styles.prio_div}>
+            <FontAwesomeIcon
+              icon={faFireFlameCurved}
+              className={`${styles.prio_one} ${
+                currentTask.isPrioritized ? "" : styles.d_none
+              }`}
+            />
+            <FontAwesomeIcon
+              icon={faFireFlameCurved}
+              className={`${styles.prio_sec} ${
+                currentTask.isPrioritized ? "" : styles.d_none
+              }`}
+            />
+          </div>
+        </div>
+
+        <div className={styles.display_buttons}>
+          <button
+            onClick={completionChangeHandler}
+            className={`${styles.button} ${
+              currentTask.completed
+                ? styles.completed_button
+                : styles.complete_button
+            }`}
+          >
+            {currentTask.completed ? "Completed" : "Complete"}
+          </button>
+
+          <button
+            className={`${styles.button} ${
+              currentTask.completed ? styles.d_none : ""
+            }`}
+            onClick={() => {
+              setInEditMode((prevState) => !prevState);
+            }}
+          >
+            <FontAwesomeIcon icon={faEdit} />
+          </button>
+
+          <button
+            className={`${styles.button} ${
+              currentTask.completed ? styles.d_none : ""
+            }`}
+            onClick={() => deleteHandler(currentTask._id)}
+          >
+            <FontAwesomeIcon icon={faTrash} />
+          </button>
+        </div>
       </div>
-      <button onClick={() => deleteHandler(currentTask._id)}>
-        <FontAwesomeIcon icon={faTrash} />
-      </button>
     </div>
   );
 }

@@ -1,6 +1,14 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
+import styles from "./Task.module.css";
+import secondaryStyles from "./NewTaskForm.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faFireFlameCurved } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useRef } from "react";
 
 function NewTaskForm({ updateTasksArray }) {
   const [summary, setSummary] = useState("");
@@ -8,9 +16,12 @@ function NewTaskForm({ updateTasksArray }) {
   const [dueDate, setDueDate] = useState("");
   const [isPrioritized, setIsPrioritized] = useState(false);
   const [labels, setLabels] = useState("");
+  const [inCreateMode, setInCreateMode] = useState(false);
+  const [x, setX] = useState(0);
+  const [y, setY] = useState(0);
+  const buttonRef = useRef(null);
 
-  // Function to handle form submission
-  const handleSubmit = async function (e) {
+  async function acceptHandler(e) {
     e.preventDefault();
 
     const newTask = {
@@ -18,7 +29,7 @@ function NewTaskForm({ updateTasksArray }) {
       description,
       dueDate: new Date(dueDate),
       isPrioritized,
-      labels: labels.split(","),
+      labels: labels !== "" ? labels.split(",") : [],
     };
 
     const options = {
@@ -36,66 +47,134 @@ function NewTaskForm({ updateTasksArray }) {
       const returnedTask = response.data.createdTask;
 
       updateTasksArray((prevState) => [...prevState, returnedTask]);
+      setSummary("");
+      setDescription("");
+      setDueDate("");
+      setIsPrioritized(false);
+      setLabels("");
+      setInCreateMode(false);
     } catch (error) {
       console.log(error);
     }
-  };
+  }
+
+  async function declineHandler(e) {
+    e.preventDefault();
+    setInCreateMode(false);
+  }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Summary: *
-        <input
-          type="text"
-          name="summary"
-          value={summary}
-          onChange={(e) => setSummary(e.target.value)}
-          required
-        />
-      </label>
-      <br />
-      <label>
-        Description:
-        <textarea
-          name="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-      </label>
-      <br />
-      <label>
-        Due Date:
-        <input
-          type="date"
-          name="dueDate"
-          value={dueDate}
-          onChange={(e) => setDueDate(e.target.value)}
-        />
-      </label>
-      <br />
-      <label>
-        High Priority:
-        <input
-          type="checkbox"
-          name="highPriority"
-          checked={isPrioritized}
-          onChange={() => setIsPrioritized((prevState) => !prevState)}
-        />
-      </label>
-      <br />
-      <label>
-        Labels:
-        <input
-          type="text"
-          name="labels"
-          value={labels}
-          onChange={(e) => setLabels(e.target.value)}
-        />
-        <small>Separate labels with commas</small>
-      </label>
-      <br />
-      <button type="submit">Submit</button>
-    </form>
+    <div>
+      <button
+        ref={buttonRef}
+        onClick={() => {
+          setInCreateMode(true);
+          setX(buttonRef.current.offsetTop);
+          setY(buttonRef.current.offsetLeft);
+        }}
+        style={{
+          top: `${x}px`,
+          left: `${y}px`,
+        }}
+        className={`${secondaryStyles.create_button}  ${
+          inCreateMode ? secondaryStyles.o_zero : ""
+        }`}
+      >
+        <FontAwesomeIcon icon={faPlus} /> New Task
+      </button>
+      <form
+        className={`${styles.form_style} ${secondaryStyles.form_size} ${
+          inCreateMode ? "" : styles.d_none
+        }`}
+      >
+        <label>
+          Summary <span className={styles.red}>*</span>{" "}
+          <input
+            className={styles.form_input}
+            type="text"
+            name="summary"
+            value={summary}
+            onChange={(e) => setSummary(e.target.value)}
+            required
+          />
+        </label>
+        <label>
+          Description
+          <textarea
+            className={styles.form_input}
+            name="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </label>
+
+        <label>
+          Due Date
+          <input
+            className={styles.form_input}
+            type="date"
+            name="dueDate"
+            value={dueDate}
+            // value={
+            //   dueDate !== null && dueDate !== ""
+            //     ? new Date(dueDate).toISOString().split("T")[0]
+            //     : null
+            // }
+            onChange={(e) => setDueDate(e.target.value)}
+          />
+        </label>
+
+        <label>
+          Labels
+          <input
+            className={styles.form_input}
+            type="text"
+            name="labels"
+            value={labels}
+            onChange={(e) => setLabels(e.target.value)}
+          />
+        </label>
+        <label className={styles.d_flex}>
+          <div>
+            Toggle <u>Priority</u>
+          </div>
+          <div
+            onClick={() => {
+              setIsPrioritized((prevState) => !prevState);
+              console.log("clicked", isPrioritized);
+            }}
+            className={styles.prio_div}
+          >
+            <FontAwesomeIcon
+              icon={faFireFlameCurved}
+              className={`${styles.prio_one} ${
+                isPrioritized ? "" : styles.no_prio
+              }`}
+            />
+            <FontAwesomeIcon
+              icon={faFireFlameCurved}
+              className={`${styles.prio_sec} ${
+                isPrioritized ? "" : styles.no_prio
+              }`}
+            />
+          </div>
+        </label>
+        <div className={styles.form_buttons}>
+          <button
+            onClick={acceptHandler}
+            className={`${styles.button} ${styles.form_button_accept}`}
+          >
+            <FontAwesomeIcon icon={faCheck} />
+          </button>
+          <button
+            onClick={declineHandler}
+            className={`${styles.button} ${styles.form_button_decline}`}
+          >
+            <FontAwesomeIcon icon={faTimes} />
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }
 

@@ -1,7 +1,138 @@
-/* @import url("./../app/colors.css"); */
+.main_div {
+  width: 20%;
+
+  background: linear-gradient(
+    142deg,
+    var(--task-primary) 0%,
+    var(--task-secondary) 99%
+  );
+  border-radius: 5%;
+  margin-top: 50px;
+  margin-left: 50px;
+  padding: 10px;
+
+  color: var(--awesome-white);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form_style {
+  display: flex;
+  flex-direction: column;
+}
+
+.red {
+  color: rgb(153, 0, 0);
+}
+
+.completed_task {
+  opacity: 0.5;
+}
+
+.main_div:hover {
+  box-shadow: 0 15px 8px rgba(0, 0, 0, 0.4);
+  transform: translateY(-15px); /* Move the div up by 15 pixels on hover */
+}
+
+.prio_div {
+  margin-top: 10px;
+  margin-left: 5px;
+}
+
+.prio_one {
+  margin-left: 5px;
+  font-size: 30px;
+  color: rgb(165, 0, 0);
+}
+.prio_sec {
+  font-size: 25px;
+  color: rgb(255, 136, 0);
+  position: relative;
+  left: -24px;
+  top: -3px;
+}
+
+.no_prio {
+  color: rgb(70, 70, 70);
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.label {
+  font-size: 0.8rem;
+  border-radius: 8px; /* Rounded edges */
+  padding: 8px 20px 12px 20px;
+  cursor: context-menu;
+  margin-top: 10px;
+  margin-left: 5px;
+}
+
+.dueLabel {
+  background-color: var(--navbar-primary);
+}
+.categoryLabel {
+  background-color: rgb(121, 0, 151);
+}
+
+.display_buttons {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.form_input {
+  border-radius: 10px;
+  border: none;
+  width: 100%;
+}
+
+.form_buttons {
+  display: flex;
+  justify-content: flex-end;
+
+  gap: 10px;
+}
+
+.form_button_accept {
+  background-color: rgb(0, 255, 21);
+}
+
+.form_button_decline {
+  background-color: rgb(214, 3, 3);
+}
+
+.button {
+  border-radius: 8px; /* Rounded edges */
+  border: none;
+  transition: transform 0.3s ease;
+}
+
+.button:hover {
+  transform: scale(1.1); /* Slightly enlarge the button */
+}
+
+.complete_button {
+  color: var(--awesome-white);
+  background-color: rgb(53, 83, 253);
+}
+
+.completed_button {
+  color: var(--awesome-white);
+  background-color: rgb(0, 255, 21);
+}
 
 .d_none {
   display: none;
+}
+
+.d_flex {
+  display: flex;
+  align-items: center;
 }
 
 .colors {

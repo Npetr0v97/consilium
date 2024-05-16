@@ -1,0 +1,31 @@
+.form_size {
+  width: 20%;
+  position: absolute;
+  /* top: 68px;
+  left: 456px; */
+  background-color: blue;
+  z-index: 1;
+  padding: 20px;
+  border-radius: 30px;
+}
+
+.create_button {
+  margin-top: 20px;
+  margin-left: 75px;
+  background-color: white;
+
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.25rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.create_button:hover {
+  transform: scale(1.1);
+}
+
+.o_zero {
+  opacity: 0;
+}
