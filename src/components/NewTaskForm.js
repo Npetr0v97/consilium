@@ -65,16 +65,17 @@ function NewTaskForm({ updateTasksArray }) {
 
   return (
     <div>
+      <div
+        className={`${secondaryStyles.backdrop} ${
+          inCreateMode ? secondaryStyles.backdrop_on : ""
+        }`}
+      ></div>
       <button
         ref={buttonRef}
         onClick={() => {
           setInCreateMode(true);
-          setX(buttonRef.current.offsetTop);
-          setY(buttonRef.current.offsetLeft);
-        }}
-        style={{
-          top: `${x}px`,
-          left: `${y}px`,
+          setX(buttonRef.current.offsetLeft);
+          setY(buttonRef.current.offsetTop);
         }}
         className={`${secondaryStyles.create_button}  ${
           inCreateMode ? secondaryStyles.o_zero : ""
@@ -86,6 +87,10 @@ function NewTaskForm({ updateTasksArray }) {
         className={`${styles.form_style} ${secondaryStyles.form_size} ${
           inCreateMode ? "" : styles.d_none
         }`}
+        style={{
+          left: `${x}px`,
+          top: `${y}px`,
+        }}
       >
         <label>
           Summary <span className={styles.red}>*</span>{" "}
@@ -141,7 +146,6 @@ function NewTaskForm({ updateTasksArray }) {
           <div
             onClick={() => {
               setIsPrioritized((prevState) => !prevState);
-              console.log("clicked", isPrioritized);
             }}
             className={styles.prio_div}
           >

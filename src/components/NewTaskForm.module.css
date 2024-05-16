@@ -1,17 +1,46 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+  z-index: -1;
+  opacity: 0;
+  backdrop-filter: blur(3px);
+  /* display: none; */
+  transition: all 0.3s ease;
+}
+
+.backdrop_on {
+  opacity: 1;
+  z-index: 1;
+}
+
 .form_size {
   width: 20%;
   position: absolute;
   /* top: 68px;
   left: 456px; */
-  background-color: blue;
-  z-index: 1;
+  background: linear-gradient(
+    142deg,
+    rgba(109, 136, 232, 1) 0%,
+    rgba(221, 109, 188, 1) 50%,
+    rgba(122, 54, 102, 1) 100%
+  );
+  z-index: 2;
   padding: 20px;
   border-radius: 30px;
+  transition: all 0.3s ease;
+}
+
+.form_size:hover {
+  transform: scale(1.05);
 }
 
 .create_button {
   margin-top: 20px;
-  margin-left: 75px;
+
   background-color: white;
 
   border: none;

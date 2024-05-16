@@ -142,3 +142,14 @@
 .disable_pointer_event {
   pointer-events: none;
 }
+
+@media screen and (max-width: 1440px) {
+  .main_div {
+    width: 17.5%;
+    font-size: 0.8rem;
+    border-radius: 5%;
+    margin-top: 50px;
+    margin-left: 50px;
+    padding: 10px;
+  }
+}

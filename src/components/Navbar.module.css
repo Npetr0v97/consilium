@@ -1,5 +1,5 @@
 .main_container {
-  width: 20%;
+  width: 15%;
   display: flex;
   flex-direction: column;
   align-items: self-start;
@@ -7,23 +7,27 @@
   margin-top: 100px;
 }
 
-.logo_div {
-  display: flex;
-  align-items: center;
+.d_inline {
+  display: inline-block;
 }
 
 .logo {
+  text-decoration: none;
   border-radius: 25%;
-  margin-left: 25px;
-  display: inline;
-  font-size: 2rem;
+
+  font-size: 1.35rem;
   color: var(--awesome-white);
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
 }
 
 .logo_text {
   text-decoration: none;
   font-weight: 700;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
 
   color: var(--awesome-white);
   margin-left: 10px;
@@ -44,20 +48,21 @@
   margin-top: 75px;
   width: 75%;
   padding: 30px 20px;
+  font-size: 0.85rem;
 }
 
 .link_container {
-  margin-top: 90px;
+  margin-top: 70px;
   display: flex;
   align-items: center;
 }
 
 .navlink {
-  margin-left: 100px;
+  margin-left: 2.75rem;
   color: var(--awesome-white);
   transition: all 0.3s ease-in;
   text-decoration: none;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 
 .navlink:hover,
@@ -71,7 +76,7 @@
   z-index: -1;
   border-top-right-radius: 12.5px 12.5px;
   border-bottom-right-radius: 12.5px 12.5px;
-  width: 300px;
+  width: 200px;
   height: 50px;
   position: absolute;
   left: 0px;
@@ -81,4 +86,27 @@
 
 .navlink_div_hovered {
   transform: translateX(0px);
+}
+
+@media screen and (max-width: 1440px) {
+  .logo {
+    font-size: 1.3rem;
+    color: red;
+  }
+
+  .navlink {
+    margin-left: 30px;
+    font-size: 1rem;
+  }
+
+  .paragraph {
+    font-size: 0.75rem;
+    padding: 25px 15px;
+    width: 85%;
+  }
+
+  .navlink_div {
+    width: 175px;
+    height: 40px;
+  }
 }

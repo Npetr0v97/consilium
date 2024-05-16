@@ -67,7 +67,6 @@ export default function Home() {
     <main className={styles.d_flex}>
       <Navbar />
       <MainView>
-        <h1>Greetings</h1>
         <NewTaskForm updateTasksArray={setTasksArray} />
         <TasksList tasks={tasksArray} deleteHandler={deleteHandler} />
       </MainView>

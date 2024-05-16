@@ -18,15 +18,15 @@ function Navbar() {
   const [hasHoverEffects, setHasHoverEffects] = useState(false);
   return (
     <nav className={styles.main_container}>
-      <div className={styles.logo_div}>
-        <Link className={styles.logo} href="/">
+      <Link className={styles.logo} href="/">
+        <div>
           <FontAwesomeIcon icon={faSeedling} />
-        </Link>
+        </div>
+        <h1 className={`${merienda.className} ${styles.d_inline}`}>
+          CONSILIUM
+        </h1>
+      </Link>
 
-        <Link className={styles.logo_text} href="/">
-          <h1 className={merienda.className}>CONSILIUM</h1>
-        </Link>
-      </div>
       <div className={styles.link_container}>
         <div
           className={`${styles.navlink_div} ${
@@ -43,7 +43,7 @@ function Navbar() {
             setHasHoverEffects("");
           }}
           href="/"
-          className={`${styles.navlink} ${
+          className={`${styles.navlink}  ${
             pathname === "/" ? styles.navlink_active : ""
           }`}
         >

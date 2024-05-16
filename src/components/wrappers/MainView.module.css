@@ -1,8 +1,12 @@
 .main_view {
-  width: 80%;
-  margin-left: auto;
+  width: 85%;
+  padding-top: 25px;
+  padding-left: 100px;
   background-color: var(--seconday-awesome-white);
   border-top-left-radius: 25px 25px;
   border-bottom-left-radius: 25px 25px;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
