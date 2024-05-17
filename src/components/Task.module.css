@@ -1,11 +1,19 @@
 .main_div {
   width: 20%;
-
   background: linear-gradient(
     142deg,
     var(--task-primary) 0%,
     var(--task-secondary) 99%
   );
+
+  background: linear-gradient(
+    142deg,
+    rgba(109, 136, 232, 1) 0%,
+    rgba(221, 109, 188, 1) 65%,
+    rgba(221, 109, 188, 1) 95%,
+    rgb(170, 79, 143) 100%
+  );
+
   border-radius: 5%;
   margin-top: 50px;
   margin-left: 50px;
@@ -21,16 +29,15 @@
 }
 
 .red {
-  color: rgb(153, 0, 0);
+  color: rgb(150, 0, 0);
 }
-
 .completed_task {
   opacity: 0.5;
 }
 
 .main_div:hover {
   box-shadow: 0 15px 8px rgba(0, 0, 0, 0.4);
-  transform: translateY(-15px); /* Move the div up by 15 pixels on hover */
+  transform: translateY(-15px);
 }
 
 .prio_div {
@@ -63,7 +70,7 @@
 
 .label {
   font-size: 0.8rem;
-  border-radius: 8px; /* Rounded edges */
+  border-radius: 8px;
   padding: 8px 20px 12px 20px;
   cursor: context-menu;
   margin-top: 10px;
@@ -74,7 +81,7 @@
   background-color: var(--navbar-primary);
 }
 .categoryLabel {
-  background-color: rgb(121, 0, 151);
+  background-color: #790097;
 }
 
 .display_buttons {
@@ -107,13 +114,13 @@
 }
 
 .button {
-  border-radius: 8px; /* Rounded edges */
+  border-radius: 8px;
   border: none;
   transition: transform 0.3s ease;
 }
 
 .button:hover {
-  transform: scale(1.1); /* Slightly enlarge the button */
+  transform: scale(1.1);
 }
 
 .complete_button {

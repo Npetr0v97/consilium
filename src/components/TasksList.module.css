@@ -1,3 +1,5 @@
+/* These pseudoe elemts customize the scrollbar. But it works only in Chrome  */
+
 .tasks_container {
   &::-webkit-scrollbar {
     width: 5px;
@@ -12,18 +14,15 @@
     background: rgb(255, 255, 255, 0);
   }
   display: flex;
-  width: 85%;
+  width: 95%;
   justify-content: left;
   flex-wrap: wrap;
 
   margin-top: 20px;
-  height: 75vh;
+  height: 80vh;
   overflow-y: scroll;
   background-color: rgba(255, 255, 255, 0.6);
-  align-items: center;
   border-radius: 25px 25px;
+  align-items: center;
   padding-bottom: 50px;
-}
-
-@media screen and (max-width: 1440px) {
 }

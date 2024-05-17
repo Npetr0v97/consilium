@@ -8,10 +8,16 @@ const taskSchema = new Schema(
     completedDate: Date,
     dueDate: Date,
     isPrioritized: Boolean,
-    labels: [{ type: String }],
+    labels: {
+      type: [String],
+      validate: [arrayLimit, "Label array exceeds the limit of 4"],
+    },
   },
   { timestamps: true }
 );
+function arrayLimit(val) {
+  return val.length <= 4;
+}
 
 const Task = mongoose.models.Task || mongoose.model("Task", taskSchema);
 

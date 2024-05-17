@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import connectMongoDB from "../../../../libs/mongodb";
 import Task from "../../../../models/task";
 
-// Geting the list of all Todos
 export async function GET(request) {
   await connectMongoDB();
 
@@ -13,18 +12,18 @@ export async function GET(request) {
 export async function POST(request) {
   await connectMongoDB();
   let newTask = await request.json();
+  //completed and completedDate get default value because each generated tasks is obviously not completed. There might be a way to do this via the model (instead of having to place this in the object)
   newTask = {
     ...newTask,
     completed: false,
     completedDate: null,
   };
-  console.log(newTask);
 
   const createdTask = await Task.create(newTask);
   return NextResponse.json({ createdTask }, { status: 200 });
 }
 
-//emergency delete
+//Emergency delete. Who knows when I might needs this :)
 export async function DELETE(request) {
   const theMagicWord = request.nextUrl.searchParams.get("theMagicWord");
   console.log(theMagicWord);

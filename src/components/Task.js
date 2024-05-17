@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
@@ -6,17 +6,19 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { faFireFlameCurved } from "@fortawesome/free-solid-svg-icons";
+import Multiselect from "multiselect-react-dropdown";
 
 import styles from "./Task.module.css";
 
-function Task({ task, deleteHandler }) {
+function Task({ task, deleteHandler, multiSelectOptions, setTriggerSort }) {
   const [currentTask, setCurrentTask] = useState({ ...task });
   const [inEditMode, setInEditMode] = useState(false);
   const [summary, setSummary] = useState(task.summary);
   const [description, setDescription] = useState(task.description);
   const [dueDate, setDueDate] = useState(task.dueDate);
   const [isPrioritized, setIsPrioritized] = useState(task.isPrioritized);
-  const [labels, setLabels] = useState(task.labels.join(","));
+  const [labels, setLabels] = useState([...task.labels]);
+  const multiSelectRef = useRef(null);
 
   async function taskUpdater(updatedTask) {
     const options = {
@@ -35,6 +37,7 @@ function Task({ task, deleteHandler }) {
       setCurrentTask({
         ...response.data.postUpdateTask,
       });
+      setTriggerSort((prevState) => !prevState);
     } catch (error) {
       console.log(error);
     }
@@ -54,14 +57,13 @@ function Task({ task, deleteHandler }) {
 
   async function acceptHandler(e) {
     e.preventDefault();
-    console.log(currentTask.labels.length);
     const updatedTask = {
       ...currentTask,
       summary,
       description,
       dueDate,
       isPrioritized,
-      labels: labels !== "" ? labels.split(",") : [],
+      labels: [...multiSelectRef.current.getSelectedItems()],
     };
 
     await taskUpdater(updatedTask);
@@ -120,12 +122,41 @@ function Task({ task, deleteHandler }) {
 
         <label>
           Labels
-          <input
+          {/* <input
             className={styles.form_input}
             type="text"
             name="labels"
             value={labels}
             onChange={(e) => setLabels(e.target.value)}
+          /> */}
+          <Multiselect
+            isObject={false}
+            hidePlaceholder={true}
+            placeholder=""
+            showArrow={true}
+            onKeyPressFn={function noRefCheck() {}}
+            onRemove={function noRefCheck() {}}
+            onSearch={function noRefCheck() {}}
+            onSelect={function noRefCheck() {}}
+            options={multiSelectOptions}
+            selectionLimit={4}
+            ref={multiSelectRef}
+            selectedValues={[...task.labels]}
+            style={{
+              chips: {
+                background: "purple",
+              },
+              multiselectContainer: {
+                color: "purple",
+              },
+              searchBox: {
+                border: "none",
+                background: "white",
+                "border-radius": "10px",
+                height: "80px",
+                color: "red",
+              },
+            }}
           />
         </label>
         <label className={styles.d_flex}>
@@ -135,7 +166,6 @@ function Task({ task, deleteHandler }) {
           <div
             onClick={() => {
               setIsPrioritized((prevState) => !prevState);
-              console.log("clicked", isPrioritized);
             }}
             className={styles.prio_div}
           >

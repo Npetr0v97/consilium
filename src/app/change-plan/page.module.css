@@ -1,3 +1,126 @@
-.d_flex{
-    display: flex;
+.d_flex {
+  display: flex;
+  color: var(--primary-black);
+}
+
+.title {
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.pricing_container {
+  font-size: 1.5rem;
+  height: 85vh;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+}
+
+.small_text {
+  position: absolute;
+  font-size: 0.5rem;
+}
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+  opacity: 0;
+  backdrop-filter: blur(3px);
+
+  transition: all 0.3s ease;
+}
+
+.backdrop_on {
+  opacity: 1;
+  z-index: 1;
+}
+
+.modal {
+  position: absolute;
+  counter-reset: var(--primary-black);
+  top: 35%;
+  left: 45%;
+  border-radius: 25px 25px;
+  width: 30%;
+  height: 20%;
+  background-color: var(--awesome-white);
+  text-align: center;
+  align-items: center;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+  transform: translateY(10%);
+  transition: all 0.3s ease;
+  opacity: 0;
+  z-index: 2;
+}
+
+.modal_on {
+  transform: translateY(-10%);
+  opacity: 1;
+}
+
+.content {
+  margin-top: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.close_modal {
+  cursor: pointer;
+  align-self: flex-end;
+  margin-top: 15px;
+  margin-right: 20px;
+}
+
+.purchase_button {
+  width: 50%;
+
+  color: var(--awesome-white);
+  border: none;
+  background-color: rgb(53, 83, 253);
+  border-radius: 8px;
+
+  transition: transform 0.3s ease;
+}
+
+.purchase_button:hover {
+  transform: scale(1.2);
+}
+
+.features {
+  padding-left: 50px;
+  background: linear-gradient(
+    142deg,
+    rgba(109, 136, 232, 0.2) 0%,
+    rgba(221, 109, 188, 0.2) 50%,
+    rgba(122, 54, 102, 0.2) 100%
+  );
+
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  border-radius: 25px 25px;
+  gap: 30px;
+}
+.pricing_plan {
+  flex: 1 1 45%;
+  background-color: #f4f4f4;
+
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 25px 25px;
+  padding: 20px;
+  text-align: center;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }

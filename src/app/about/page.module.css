@@ -1,3 +1,34 @@
-.d_flex{
-    display: flex;
+.d_flex {
+  display: flex;
+}
+
+.main_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 80vh;
+}
+
+.main_container a {
+  text-decoration: none;
+  color: var(--navbar-primary);
+}
+
+.title {
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.card {
+  border-radius: 25px 25px;
+  width: 70%;
+
+  padding: 20px 50px;
+  background: linear-gradient(
+    142deg,
+    rgba(109, 136, 232, 0.2) 0%,
+    rgba(221, 109, 188, 0.2) 50%,
+    rgba(122, 54, 102, 0.2) 100%
+  );
 }

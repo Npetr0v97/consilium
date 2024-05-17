@@ -1,5 +1,6 @@
 import { Merienda, Ubuntu } from "next/font/google";
 
+//font definitions
 export const merienda = Merienda({
   subsets: ["latin"],
   display: "swap",

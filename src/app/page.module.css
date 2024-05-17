@@ -11,6 +11,10 @@
   min-height: 100vh;
 }
 
+.option {
+  color: red;
+}
+
 .description {
   display: inherit;
   justify-content: inherit;
