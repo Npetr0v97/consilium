@@ -37,8 +37,8 @@ export default function Home() {
           />
 
           <p className={styles.content}>
-            We haven't developed those features yet. However, we will gladly
-            take your money.
+            We haven&apos;t developed those features yet. However, we will
+            gladly take your money.
           </p>
         </d>
         <h1 className={styles.title}>Change Plan</h1>
@@ -71,7 +71,7 @@ export default function Home() {
               <h3>
                 ${price}/month{" "}
                 <span className={styles.small_text}>
-                  Grab the offer before it's too late
+                  Grab the offer before it&apos;s too late
                 </span>
               </h3>
 

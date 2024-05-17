@@ -104,7 +104,7 @@ function Navbar() {
           Change plan
         </Link>{" "}
         menu in order to pay some money for more features that you probably
-        won't use.
+        won&apos;t use.
       </p>
     </nav>
   );
