@@ -97,8 +97,6 @@ function Navbar() {
         </Link>
       </div>
       <p className={styles.paragraph}>
-        Uh-Oh! You are currently using the free version of Consilium and some
-        functionalities might be missing. <br />
         Go to the{" "}
         <Link className={styles.cp_paragraph_link} href="/change-plan">
           Change plan
